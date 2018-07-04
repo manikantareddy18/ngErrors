@@ -1,30 +1,74 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {Link, Route, Switch} from 'react-router-dom'
-import logo from './logo.svg';
 import './App.css';
 import Feedback from './Feedback';
+import Login from './Login';
 import Home from './Home';
 import Jobs from './Jobs';
 import EmployerFeedback from './EmployerFeedback';
 
+const Welcome = ({user, onSignOut})=> {
+  // This is a dumb "stateless" component
+  return (
+    <div>
+      Welcome <strong>{user.username}</strong>!
+      <a href="javascript:;" onClick={onSignOut}>Sign out</a>
+    </div>
+  )
+}
 class App extends React.Component {
+  constructor(props) {
+    super(props)
+    // the initial application state
+    this.state = {
+      user: null
+    }
+  }
+  
+  // App "actions" (functions that modify state)
+  signIn(username, password) {
+    // This is where you would call Firebase, an API etc...
+    // calling setState will re-render the entire app (efficiently!)
+    this.setState({
+      user: {
+        username,
+        password,
+      }
+    })
+  }
+  
+  signOut() {
+    // clear out user from state
+    this.setState({user: null})
+  }
   render() {
     return (
       <div>
-      <ul>
-        <li><Link exact to="/">Home Page</Link></li>
-        <li><Link exact to="/feedback">Feedback</Link></li>
-        <li><Link exact to="/jobs">Jobs</Link></li>
-        <li> <Link exact to="/efeedback">Employer Feedback</Link></li>
-        </ul>
-        <Switch>
-          <Route exact path="/" component={Home}/>
-          <Route exact path="/feedback" component={Feedback}/>
-          <Route exact path="/jobs" component={Jobs}/>
-          <Route exact path="/efeedback" component={EmployerFeedback}/>
+        { 
+          (this.state.user) ? 
+          <div>
+          <Link exact to="/home">Home</Link>
+          <Link exact to="/jobs">Jobs</Link>
 
+          <Switch>
+          
+          <Route exact path="/home" component={Home}/>
+          <Route exact path="/jobs" component={Jobs}/>
           </Switch>
+          
+            <Welcome 
+             user={this.state.user} 
+             onSignOut={this.signOut.bind(this)} 
+            />
+            </div>
+          :
+            <Login 
+             onSignIn={this.signIn.bind(this)} 
+            />
+        }
       
+      
+        
       </div>
       
     );
