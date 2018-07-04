@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import loginCss from './Login.css';
+import axios from 'axios';
+
 
   
   class Login extends React.Component {
@@ -18,16 +20,16 @@ import loginCss from './Login.css';
       let password = this.refs.password.value
       this.props.onSignIn(username, password)
 
-      var data=JSON.stringify({ applicantName : this.refs.username.value,
-        pwd : this.refs.password.value
+      var data=JSON.stringify({ ApplicantName : this.refs.username.value,
+        ApplicantPwd : this.refs.password.value
     });
-      // axios.post(`http://localhost:8080/applicantLogin`, data)
-      // .then( res =>{
-      //    res.data
-      //    this.setState({verify: res.data});
-      // })
+       axios.post(`http://localhost:8080/applicantLogin`, data)
+      .then( res =>{
+       res.data
+       this.setState({verify: res.data});
+       })
       if(this.state.verify){
-        this.context.history.push('/Home');
+        this.context.history.push('/Login');
       }
       // else{
       //   alert("Wrong credentials. Try again");

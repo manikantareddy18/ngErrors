@@ -29,41 +29,22 @@ class Jobs extends React.Component{
        this.setState({data: res.data});
     })
   }
-    render(){
-    return  <div>
-        <h3><b><u>Applied Jobs</u></b></h3>
-        <table border="1">
-        
-  <tr>
-    <th>Job Id</th>
-    <th>Job Description</th> 
-    <th>Interview Date</th>
-    <th>Interviewer Feedback</th>
-    <th></th>
-  </tr>
-  {
-        this.state.data.map(data =>
-            <tr>
-            <td>{data.ApplicantId}</td>
-            <td>{data.Description}</td> 
-            <td>{data.interviewDate}</td>
-            <td>{data.interviewerFeedback}</td>
-            <td><Link exact to="/efeedback onclick={this.handleClick}">Give Feedback</Link></td>
-            </tr>
-        )
-      }
-  </table>
-  <div>
-    <label>Job ID</label>:<label>12234</label><br/>
-    <label>Job Description</label>:<label></label><br/>
-    <label>Date attended</label>:<label></label><br/>
-    <label>Feedback</label><label>:</label><br/>
-  </div>
- 
- 
+    render(){ return <div>
 
-
-    </div>
-    }
+      <h3>Applied Jobs</h3>
+    
+          {this.state.data.map(data =>
+             <p id="rcorners2">
+             <div class="rightAlign">
+              <label class="fontWeight">Job Id :</label><label >{data.JobId}</label><br/>
+              <label class="fontWeight">Position :</label><label>{data.JobName}</label>
+              </div>
+              <div class="leftAlign"> 
+              <label class="fontWeight">Job Desc :</label><label >{data.JobDescription}</label><br/>
+              <label class="fontWeight">Skill Required :</label><label >{data.skillsRequired}</label>
+              </div>
+              {<label><button onclick={this.handleClick} class="applyButton" >Apply</button></label>}
+          </p>)}
+    </div>}
 }
 export default Jobs;
