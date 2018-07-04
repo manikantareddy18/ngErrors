@@ -2,32 +2,6 @@ import React from 'react';
 import {Link} from 'react-router-dom'
 import axios from 'axios'
 import App from './App';
-
-/*const JSON_DATA = [{
-    "jobId":"123",
-    "jobDesc":"Developer",
-    "interviewDate":"12-02-2019",
-    "interviewerFeedback":"On Hold"
-  },
-  {
-    "jobId":"1234",
-    "jobDesc":"Analyst",
-    "interviewDate":"19-02-2019",
-    "interviewerFeedback":""
-  },
-  {
-    "jobId":"12314",
-    "jobDesc":"Specialist",
-    "interviewDate":"19-02-2019",
-    "interviewerFeedback":""
-  },
-  {
-    "jobId":"12324",
-    "jobDesc":"Lead",
-    "interviewDate":"19-02-2019",
-    "interviewerFeedback":""
-  }
-  ]*/
 class Jobs extends React.Component{
   constructor(){
     super();
@@ -36,32 +10,19 @@ class Jobs extends React.Component{
     }
     this.handleClick=this.handleClick.bind(this);
   }
+  //'Access-Control-Allow-Origin': '*',
+  componentWillMount(){
+    var config = {
+    //  headers:{'Access-Control-Request-Headers':'*'}
+    };
+    axios.get(`http://localhost:8080/applicant`,config)
+    .then( res =>{
+       res.data
+       this.setState({data: res.data});
+    }).catch((err)=>{console.log(err)})
+  }
   handleClick(){
-    axios.get(`[{
-      "jobId":"123",
-      "jobDesc":"Developer",
-      "interviewDate":"12-02-2019",
-      "interviewerFeedback":"On Hold"
-    },
-    {
-      "jobId":"1234",
-      "jobDesc":"Analyst",
-      "interviewDate":"19-02-2019",
-      "interviewerFeedback":""
-    },
-    {
-      "jobId":"12314",
-      "jobDesc":"Specialist",
-      "interviewDate":"19-02-2019",
-      "interviewerFeedback":""
-    },
-    {
-      "jobId":"12324",
-      "jobDesc":"Lead",
-      "interviewDate":"19-02-2019",
-      "interviewerFeedback":""
-    }
-    ]`)
+    axios.get(`http://localhost:8080/applicant`)
     .then( res =>{
        res.data
        this.setState({data: res.data});
@@ -83,8 +44,8 @@ class Jobs extends React.Component{
   {
         this.state.data.map(data =>
             <tr>
-            <td>{data.jobId}</td>
-            <td>{data.jobDesc}</td> 
+            <td>{data.ApplicantId}</td>
+            <td>{data.Description}</td> 
             <td>{data.interviewDate}</td>
             <td>{data.interviewerFeedback}</td>
             <td><Link exact to="/efeedback onclick={this.handleClick}">Give Feedback</Link></td>
