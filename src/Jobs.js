@@ -16,14 +16,14 @@ class Jobs extends React.Component{
     var config = {
     //  headers:{'Access-Control-Request-Headers':'*'}
     };
-    axios.get(`http://localhost:8080/applicant`,config)
+    axios.get(`http://localhost:8080/findAppliedAll`,config)
     .then( res =>{
        res.data
        this.setState({data: res.data});
     }).catch((err)=>{console.log(err)})
   }
   handleClick(){
-    axios.get(`http://localhost:8080/applicant`)
+    axios.get(`http://localhost:8080/findAppliedAll`)
     .then( res =>{
        res.data
        this.setState({data: res.data});
@@ -38,12 +38,14 @@ class Jobs extends React.Component{
              <div class="rightAlign">
               <label class="fontWeight">Job Id :</label><label >{data.JobId}</label><br/>
               <label class="fontWeight">Position :</label><label>{data.JobName}</label>
+              
               </div>
               <div class="leftAlign"> 
               <label class="fontWeight">Job Desc :</label><label >{data.JobDescription}</label><br/>
-              <label class="fontWeight">Skill Required :</label><label >{data.skillsRequired}</label>
+              <label class="fontWeight">Skill Required :</label><label >{data.skillsRequired}</label><br/>
+              <label class="fontWeight">Interviewer Feedback :</label><label>{data.interviewerFeedback}</label>
               </div>
-              {<label><button onclick={this.handleClick} class="applyButton" >Apply</button></label>}
+              
           </p>)}
     </div>}
 }
