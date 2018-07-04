@@ -7,12 +7,21 @@ import Home from './Home';
 import Jobs from './Jobs';
 import EmployerFeedback from './EmployerFeedback';
 
-const Welcome = ({user, onSignOut})=> {
+const WelcomeUser = ({user})=> {
   // This is a dumb "stateless" component
   return (
     <div>
-      Welcome <strong>{user.username}</strong>!
-      <a href="javascript:;" onClick={onSignOut}>Sign out</a>
+    
+      <li>Welcome {user.username}</li>!
+      
+    </div>
+  )
+}
+const SignOut = ({onSignOut})=> {
+  // This is a dumb "stateless" component
+  return (
+    <div>
+      <a href="javascript:;" onClick={onSignOut} style={{float:'right'}}>Sign out  </a>
     </div>
   )
 }
@@ -47,30 +56,23 @@ class App extends React.Component {
         { 
           (this.state.user) ? 
           <div>
-          <Link exact to="/home">Home</Link>
-          <Link exact to="/jobs">Jobs</Link>
 
-          <Switch>
-          
-          <Route exact path="/home" component={Home}/>
-          <Route exact path="/jobs" component={Jobs}/>
-          </Switch>
-          
-            <Welcome 
-             user={this.state.user} 
-             onSignOut={this.signOut.bind(this)} 
-            />
-            </div>
+            <ul>
+              <li><Link exact to="/home">Home</Link></li>
+              <li><Link exact to="/jobs">Jobs</Link></li>
+              <li><Link exact to="/feedback">Feedback</Link></li>
+              <li><SignOut onSignOut={this.signOut.bind(this)}/></li>
+            </ul>
+           <Switch>
+              <Route exact path="/home" component={Home}/>
+              <Route exact path="/feedback" component={Feedback}/>
+              <Route exact path="/jobs" component={Jobs}/>
+           </Switch>
+          </div>
           :
-            <Login 
-             onSignIn={this.signIn.bind(this)} 
-            />
+            <Login onSignIn={this.signIn.bind(this)}/>
         }
-      
-      
-        
       </div>
-      
     );
   }
 }

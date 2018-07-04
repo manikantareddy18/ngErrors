@@ -2,6 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom'
 import axios from 'axios'
 import App from './App';
+
 class Jobs extends React.Component{
   constructor(){
     super();
@@ -30,7 +31,7 @@ class Jobs extends React.Component{
   }
     render(){
     return  <div>
-        <h3>Applied Jobs</h3>
+        <h3><b><u>Applied Jobs</u></b></h3>
         <table border="1">
         
   <tr>
@@ -40,7 +41,6 @@ class Jobs extends React.Component{
     <th>Interviewer Feedback</th>
     <th></th>
   </tr>
- 
   {
         this.state.data.map(data =>
             <tr>
@@ -52,8 +52,17 @@ class Jobs extends React.Component{
             </tr>
         )
       }
+  </table>
+  <div>
+    <label>Job ID</label>:<label>12234</label><br/>
+    <label>Job Description</label>:<label></label><br/>
+    <label>Date attended</label>:<label></label><br/>
+    <label>Feedback</label><label>:</label><br/>
+  </div>
+ 
+ 
 
-</table>
+
     </div>
     }
 }

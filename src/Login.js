@@ -4,17 +4,39 @@ import loginCss from './Login.css';
 
   
   class Login extends React.Component {
-    
+    constructor(){
+      super();
+      this.state={
+        verify: false,
+      }
+    }
     // Using a class based component here because we're accessing DOM refs
    
     handleSignIn(e) {
-      e.preventDefault()
+     
       let username = this.refs.username.value
       let password = this.refs.password.value
       this.props.onSignIn(username, password)
+
+      var data=JSON.stringify({ applicantName : this.refs.username.value,
+        pwd : this.refs.password.value
+    });
+      // axios.post(`http://localhost:8080/applicantLogin`, data)
+      // .then( res =>{
+      //    res.data
+      //    this.setState({verify: res.data});
+      // })
+      if(this.state.verify){
+        this.context.history.push('/Home');
+      }
+      // else{
+      //   alert("Wrong credentials. Try again");
+      //   //return false;
+      //   this.context.router.push('/Login');
+      // }
+      
     }
     
-
     render() {
       return (
        <div>
@@ -38,9 +60,5 @@ import loginCss from './Login.css';
     }
   
   }
-  
-  
-  
-
   export default Login;
   
